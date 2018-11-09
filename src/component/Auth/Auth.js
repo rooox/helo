@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {updateUser} from './../../ducks/reducer';
 
 class Auth extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             username: '',
@@ -27,6 +29,8 @@ class Auth extends Component {
         axios.post('/auth/register', newUser).then(users => console.log(users) || (this.setState({users: users.data})));
 
         this.props.history.push('/dashboard');
+
+        this.props.updateUser();
     }
 
     login(){
@@ -38,6 +42,8 @@ class Auth extends Component {
         axios.post('/auth/login', user).then(users => console.log(users) || (this.setState({users: users.data})));
 
         this.props.history.push('/dashboard');
+
+        this.props.updateUser();
     }
     render() {
         return (
@@ -67,4 +73,10 @@ class Auth extends Component {
 
 }
 
-export default Auth;
+function mapStateToProps(state){
+    return state
+}
+
+
+
+export default connect(mapStateToProps, {updateUser})(Auth);

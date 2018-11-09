@@ -16,6 +16,7 @@ massive(CONNECTION_STRING).then(dbInstance => {
 
 app.post('/auth/register', ctrl.createUser)
 app.post('/auth/login', ctrl.login)
+app.get('/api/posts', ctrl.getPosts)
 
 app.listen(PORT, ()=> {
     console.log(`Ship is docked on port ${PORT}`)

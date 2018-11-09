@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 function Nav(props) {
  if (props.location.pathname !== '/'){
@@ -32,6 +33,8 @@ function Nav(props) {
             // flexDirection: 'column',
             // justifyContent: 'space-between'
         }}>
+        <img src={`https://robohash.org/${props.username}`}/>
+        <h2>{props.username}</h2>
         <Link to='/dashboard'>
             <button >Home</button>
         </Link>
@@ -54,6 +57,13 @@ function Nav(props) {
     } else { return null}
 }
 
-export default withRouter(Nav);
+function mapStateToProps (state) {
+    return {
+        username: state.username,
+        user_image: state.user_image
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(Nav));
 
 // onClick={() => ()}
